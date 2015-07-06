@@ -1,0 +1,183 @@
+<?php 
+/*
+ * Implements hook_schema().
+ */
+ function mortgage_database_schema() {
+	$schema = array();
+	 $schema['mortgage_database'] = array(
+         'description'=>'Stores Loan Pie Mortgage data.',
+         'fields'=>array(
+                         'mortgage_id' => array(
+                                                'type' => 'serial',
+                                                'not null' => TRUE,
+                                                'description' => 'Mortgage ID',
+                                                ),
+                         'mortgage_address_id' => array(
+                                                        'type' => 'varchar',
+                                                        'length' => 45,
+                                                        'not null' => FALSE,
+                                                        'description' => t('Mortgage address'),
+                                                        ),
+                         'orig_loan_amt' => array(
+                                                  'type' => 'numeric',
+                                                  'size' => 'normal',
+                                                  'not null' => FALSE,
+                                                  'default' => 0,
+                                                  'precision' => 15,
+                                                  'scale' => 2,
+                                                  'description' => 'Original loan amount',
+                                                  ),
+                         'orig_loan_date' => array(
+                                                   'mysql_type' => 'datetime',
+                                                   'not null' => FALSE,
+                                                   'description' => t('Original loan date'),
+                                                   ),
+                         'curr_loan_amt' => array(
+                                                  'type' => 'numeric',
+                                                  'size' => 'normal',
+                                                  'not null' => FALSE,
+                                                  'default' => 0,
+                                                  'precision' => 15,
+                                                  'scale' => 2,
+                                                  'description' => t('Current loan amount left'),
+                                                  ),
+                         'payment_amt' => array(
+                                                'type' => 'numeric',
+                                                'size' => 'normal',
+                                                'not null' => FALSE,
+                                                'default' => 0,
+                                                'precision' => 15,
+                                                'scale' => 2,
+                                                'description' => 'Payment amount',
+                                                ),
+                         'last_paid_dt' => array(
+                                                 'mysql_type' => 'datetime',
+                                                 'not null' => FALSE,
+                                                 'description' => t('Last paid date'),
+                                                 ),
+                         'loan_status' => array(
+                                                'type' => 'varchar',
+                                                'length' => 45,
+                                                'not null' => FALSE,
+                                                'description' => t('Loan status'),
+                                                ),
+                         'loan_type' => array(
+                                              'type' => 'varchar',
+                                              'length' => 45,
+                                              'not null' => FALSE,
+                                              'description' => t('Loan type'),
+                                              ),
+                         'interest' => array(
+                                             'type' => 'numeric',
+                                             'size' => 'normal',
+                                             'not null' => FALSE,
+                                             'default' => 0,
+                                             'precision' => 5,
+                                             'scale' => 2,
+                                             ),
+                         'maturity_date' => array(
+                                                  'mysql_type' => 'datetime',
+                                                  'not null' => FALSE,
+                                                  'description' => t('Maturity date'),
+                                                  ),
+                         'months_to_mature' => array(
+                                                     'type' => 'int',
+                                                     'unsigned' => TRUE,
+                                                     'not null' => FALSE,
+                                                     'default' => 0,
+                                                     'description' => 'Months to mature',
+                                                     ),
+                         'investment_rating' => array(
+                                                      'type' => 'varchar',
+                                                      'length' => 45,
+                                                      'not null' => FALSE,
+                                                      'description' => t('Ivestment rating'),
+                                                      ),
+                         'paystring' => array(
+                                              'type' => 'varchar',
+                                              'length' => 45,
+                                              'not null' => FALSE,
+                                              'description' => t('Paystring'),
+                                              ),
+                         'occupancy' => array(
+                                              'type' => 'varchar',
+                                              'length' => 45,
+                                              'not null' => FALSE,
+                                              'description' => t('Occupancy'),
+                                              ),
+                         'bpo_date' => array(
+                                             'mysql_type' => 'datetime',
+                                             'not null' => FALSE,
+                                             'description' => t('BPO date'),
+                                             ),
+                         'bpo_value' => array(
+                                              'type' => 'numeric',
+                                              'size' => 'normal',
+                                              'not null' => FALSE,
+                                              'default' => 0,
+                                              'precision' => 15,
+                                              'scale' => 2,
+                                              ),
+                         'curr_loan_to_value' => array(
+                                                       'type' => 'numeric',
+                                                       'size' => 'normal',
+                                                       'not null' => FALSE,
+                                                       'default' => 0,
+                                                       'precision' => 15,
+                                                       'scale' => 2,
+                                                       ),
+                         'loan_purpose' => array(
+                                                 'type' => 'varchar',
+                                                 'length' => 45,
+                                                 'not null' => FALSE,
+                                                 'description' => t('Purpose of loan'),
+                                                 ),
+                         'fixed_adj_cd' => array(
+                                                 'type' => 'varchar',
+                                                 'length' => 45,
+                                                 'not null' => FALSE,
+                                                 'description' => t('Fixed adjusted certificate deposit'),
+                                                 ),
+                         'bankrupcy_ind' => array(
+                                                  'type' => 'varchar',
+                                                  'length' => 5,
+                                                  'not null' => FALSE,
+                                                  'description' => t('Bankruptcy indicator'),
+                                                  ),
+                         'foreclosure_ind' => array(
+                                                    'type' => 'varchar',
+                                                    'length' => 5,
+                                                    'not null' => FALSE,
+                                                    'description' => t('Foreclosure indicator'),
+                                                    ),
+                         'modified_loan_ind' => array(
+                                                      'type' => 'varchar',
+                                                      'length' => 5,
+                                                      'not null' => FALSE,
+                                                      'description' => t('Modified loan indicator'),
+                                                      ),
+                         'modified_date' => array(
+                                                  'mysql_type' => 'datetime',
+                                                  'not null' => FALSE,
+                                                  'description' => t('Modified date of loan'),
+                                                  ),
+                         'mortgagecol' => array(
+                                                'type' => 'varchar',
+                                                'length' => 45,
+                                                'not null' => FALSE,
+                                                'description' => t('Mortgage col'),
+                                                ),
+                         'appraisal_date' => array(
+                                                   'mysql_type' => 'datetime',
+                                                   'not null' => FALSE,
+                                                   'description' => t('Appraisal date'),
+                                                   ),
+	 )
+       'indexes' => array(
+                          'mortgage_id_UNIQUE' => array('mortgage_id'),
+                          ),
+       
+       'primary key' => array('mortgage_id');
+	) 
+	return $schema; 
+ }

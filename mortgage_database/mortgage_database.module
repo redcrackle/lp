@@ -1,0 +1,291 @@
+<?php
+/**
+ * @file
+ * Custom functionality for mortgage database.
+ */
+
+ /**
+ * hook_menu() add to menu
+ */
+ function mortgage_database_menu(){
+ 
+		$items = array();
+		
+		$items['add/mortgage'] = array(
+		'title' => 'Mortgage', 
+		'page callback' => 'drupal_get_form', 
+		'page arguments' => array('mortgage_database_form'), 
+		'menu_name' => 'main-menu',
+		'access callback' => TRUE, 
+		);
+		
+		return $items;
+ }
+ 
+/**
+* Implementation of hook_form()
+*/
+function mortgage_database_form($form, &$form_state)
+{
+	$form = array();
+	
+    $form['address'] = array(
+                             '#type' => 'textfield',
+                             '#title' => 'Address',
+                             '#required' => TRUE,
+                             '#attributes' => array('id' => array('motgage_address'), 'placeholder' => Address),
+                             );
+    
+    $form['original_loan_amount'] = array(
+                                          '#type' => 'textfield',
+                                          '#title' => t('Original Loan Amount'),
+                                          '#required' => TRUE,
+                                          '#attributes' => array('id' => array('original_loan_amount'), 'placeholder' => 'Original Loan Amount'),
+                                          );
+    
+    $form['original_loan_date'] = array(
+                                          '#type' => 'textfield',
+                                          '#title' => t('Original Loan Date'),
+                                          '#required' => TRUE,
+                                          '#attributes' => array('id' => array('original_loan_date'), 'placeholder' => 'Original Loan Date'),
+                                          );
+    
+    $form['current_loan_amount'] = array(
+                                         '#type' => 'textfield',
+                                         '#title' => t('Current Loan Amount'),
+                                         '#required' => TRUE,
+                                         '#attributes' => array('id' => array('current_loan_amount')),
+                                         );
+    
+    $form['payment_amount'] = array(
+                                    '#type' => 'textfield',
+                                    '#title' => t('Payment Amount'),
+                                    '#required' => TRUE,
+                                    '#attributes' => array('id' => array('payment_amount')),
+                                    );
+    
+    $form['last_paid_date'] = array(
+                                    '#type' => 'textfield',
+                                    '#title' => t('Last Loan Amount'),
+                                    '#required' => TRUE,
+                                    '#attributes' => array('id' => array('last_paid_date'), 'placeholder' => 'MM/DD/YYYY'),
+                                    );
+    
+    $radioButtons = array(0 => t('Active'), 1 => t('Inactive'));
+    $form['loan_status'] = array(
+                                 '#type' => 'radios',
+                                 '#title' => t('Last Status'),
+                                 '#required' => TRUE,
+                                 '#default_value' => 0,
+                                 '#options' => $radioButtons,
+                                 '#attributes' => array('id' => array('loan_status')),
+                                 );
+    
+    $radioButtons = array(0 => t('Residential'), 1 => t('Commericial'));
+    $form['loan_type'] = array(
+                              '#type' => 'radios',
+                              '#title' => t('Loan Type'),
+                              '#required' => TRUE,
+                              '#default_value' => 0,
+                              '#options' => $radioButtons,
+                              '#attributes' => array('id' => array('loan_type')),
+                              );
+    
+    $form['interest'] = array(
+                              '#type' => 'textfield',
+                              '#title' => t('Interest'),
+                              '#required' => TRUE,
+                              '#attributes' =>  array('id' => array('interest')),
+                              );
+    
+    $form['maturity_date'] = array(
+                                   '#type' => 'textfield',
+                                   '#title' => t('Maturity Date'),
+                                   '#required' => TRUE,
+                                   '#attributes' =>  array('id' => array('maturity_date'), 'placeholder' => 'MM/DD/YYYY'),
+                                   );
+    
+    $form['months_to_mature'] = array(
+                                      '#type' => 'select',
+                                      '#title' => t('Months to Mature'),
+                                      '#options' => array(
+                                                          0 => t('Select a Month');
+                                                          1 => t('January'),
+                                                          2 => t('February'),
+                                                          3 => t('March'),
+                                                          4 => t('April'),
+                                                          5 => t('May'),
+                                                          6 => t('June'),
+                                                          7 => t('July'),
+                                                          8 => t('August'),
+                                                          9 => t('September'),
+                                                          10 => t('October'),
+                                                          11 => t('November'),
+                                                          12 => t('December'),
+                                                          ),
+                                      '#required' => TRUE,
+                                      '#default_value' => 0,
+                                      '#attributes' =>  array('id' => array('months_to_mature')),
+                                      );
+    
+    $form['investment_rating'] = array(
+                                       '#type' => 'select',
+                                       '#title' => t('Months to Mature'),
+                                       '#options' => array(
+                                                           0 => t('Select a Rating');
+                                                           1 => t('A'),
+                                                           2 => t('B'),
+                                                           3 => t('C'),
+                                                           ),
+                                       '#required' => TRUE,
+                                       '#default_value' => 0,
+                                       '#attributes' =>  array('id' => array('investment_rating')),
+                                       );
+    
+    $form['paystring'] = array(
+                               '#type' => 'textfield',
+                               '#title' => t('Paystring'),
+                               '#required' => TRUE,
+                               '#attributes' =>  array('id' => array('paystring')),
+                               );
+    
+    $form['occupancy'] = array(
+                               '#type' => 'select',
+                               '#title' => t('Occupancy'),
+                               '#required' => TRUE,
+                               '#options' => array(
+                                                   0 => t('Select an Occupancy'),
+                                                   1 => t('test 1'),
+                                                   2 => t('test 2'),
+                                                   3 => t('test 3'),
+                                                   ),
+                               '#default_value' => 0,
+                               '#attributes' =>  array('id' => array('occupancy')),
+                               );
+    
+    $form['bpo_date'] = array(
+                              '#type' => 'textfield',
+                              '#title' => t('BPO Date'),
+                              '#required' => TRUE,
+                              '#attributes' =>  array('id' => array('bpo_date'), 'placeholder' => 'MM/DD/YYYY'),
+                              );
+    
+    $form['bpo_value'] = array(
+                               '#type' => 'textfield',
+                               '#title' => t('BPO Value'),
+                               '#required' => TRUE,
+                               '#attributes' =>  array('id' => array('bpo_value')),
+                               );
+    
+    $form['current_loan_to_value'] = array(
+                                           '#type' => 'textfield',
+                                           '#title' => t('Current Loan to Value'),
+                                           '#required' => TRUE,
+                                           '#attributes' =>  array('id' => array('current_loan_to_value')),
+                                           );
+    
+    $form['loan_purpose'] = array(
+                                  '#type' => 'textfield',
+                                  '#title' => t('Loan Purpose'),
+                                  '#required' => TRUE,
+                                  '#attributes' =>  array('id' => array('loan_purpose')),
+                                  );
+    
+    $form['fixed_adjusted_cd'] = array(
+                                       '#type' => 'textfield',
+                                       '#title' => t('Fixed Adjusted Certificates of Deposit'),
+                                       '#required' => TRUE,
+                                       '#attributes' =>  array('id' => array('fixed_adjusted_cd')),
+                                       );
+    
+    $form['bankruptcy_ind'] = array(
+                                    '#type' => 'textfield',
+                                    '#title' => t('Bankruptcy Ind'),
+                                    '#required' => TRUE,
+                                    '#attributes' =>  array('id' => array('bankruptcy_ind')),
+                                    );
+    
+    $form['foreclosure_ind'] = array(
+                                     '#type' => 'textfield',
+                                     '#title' => t('Foreclosure Ind'),
+                                     '#required' => TRUE,
+                                     '#attributes' =>  array('id' => array('foreclosure_ind')),
+                                     );
+    
+    $form['modified_loan_ind'] = array(
+                                       '#type' => 'textfield',
+                                       '#title' => t('Modified Loan Ind'),
+                                       '#required' => TRUE,
+                                       '#attributes' =>  array('id' => array('modified_loan_ind')),
+                                       );
+    
+    $form['modified_date'] = array(
+                                   '#type' => 'textfield',
+                                   '#title' => t('Modified Date'),
+                                   '#required' => TRUE,
+                                   '#attributes' =>  array('id' => array('modified_date'), 'placeholder' => 'MM/DD/YYYY'),
+                                    );
+    
+    $form['mortgage_col'] = array(
+                                  '#type' => 'textfield',
+                                  '#title' => t('Mortgage Col'),
+                                  '#required' => TRUE,
+                                  '#attributes' =>  array('id' => array('mortgage_col')),
+                                  );
+    
+    $form['appraisal_date'] = array(
+                                    '#type' => 'textfield',
+                                    '#title' => t('Appraisal Date'),
+                                    '#required' => TRUE,
+                                    '#attributes' =>  array('id' => array('apraisal_date'), 'placeholder' => 'MM/DD/YYYY'),
+                                    );
+    
+	return $form;
+}
+
+ 
+/**
+ * Implementation of hook_form_submit()
+*/
+
+function mortgage_database_form_submit($form, &$form_state)
+{
+    // Set custom DB
+    db_set_active("loanpie");
+    
+    $custom = array(
+                  'address' => $form_state['values']['address'],
+                  'original_loan_amount' => $form_state['values']['original_loan_amount'],
+                  'original_loan_date' => $form_state['values']['original_loan_date'],
+                  'current_loan_amount' => $form_state['values']['current_loan_amount'],
+                  'payment_amount' => $form_state['values']['payment_amount'],
+                  'last_paid_date' => $form_state['values']['last_paid_date'],
+                  'loan_status' => $form_state['values']['loan_status'],
+                  'loan_type' => $form_state['values']['loan_type'],
+                  'interest' => $form_state['values']['interest'],
+                  'maturity_date' => $form_state['values']['maturity_date'],
+                  'months_to_mature' => $form_state['values']['months_to_mature'],
+                  'investment_rating' => $form_state['values']['investment_rating'],
+                  'paystring' => $form_state['values']['paystring'],
+                  'occupancy' => $form_state['values']['occupancy'],
+                  'bpo_date' => $form_state['values']['bpo_date'],
+                  'bpo_value' => $form_state['values']['bpo_value'],
+                  'current_loan_to_value' => $form_state['values']['current_loan_to_value'],
+                  'loan_purpose' => $form_state['values']['loan_purpose'],
+                  'fixed_adjusted_cd' => $form_state['values']['fixed_adjusted_cd'],
+                  'bankruptcy_ind' => $form_state['values']['bankruptcy_ind'],
+                  'foreclosure_ind' => $form_state['values']['foreclosure_ind'],
+                  'modified_loan_ind' => $form_state['values']['modified_loan_ind'],
+                  'modified_date' => $form_state['values']['modified_date'],
+                  'mortgage_col' => $form_state['values']['mortgage_col'],
+                  'appraisal_date' => $form_state['values']['appraisal_date'],
+                  );
+    
+    $query = db_insert('mortgage')
+    ->fields($custom)
+    ->execute();
+    
+    // Change back to Drupal db
+    db_set_active();
+    
+} 
